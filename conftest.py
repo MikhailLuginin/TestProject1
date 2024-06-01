@@ -2,6 +2,7 @@ import pytest
 from selenium.webdriver.chrome import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium import webdriver
+import shutil, os
 
 
 @pytest.fixture()
@@ -13,6 +14,8 @@ def driver():
     options.add_argument('--ignore-ssl-errors')
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
     g = Service()
+    shutil.rmtree('.\\screen\\')
+    os.mkdir('.\\screen\\')
     driver = webdriver.Chrome(options=options, service=g)
     driver.maximize_window()
     yield driver
